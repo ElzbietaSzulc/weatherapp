@@ -1,0 +1,18 @@
+*{
+    font-family: "Rimouski";
+}
+
+background {
+    background-color :#3b52a3;
+}
+
+.container{
+    width: 300px;    
+    background-color: #FFF;
+    
+    display: block;
+    margin: 0 auto;
+    
+    border-radius: 10px;
+    padding-bottom : 50px;
+}
