@@ -18,7 +18,7 @@ const Kelvin = 273;
 const key = "2282772f730e9f35f3daf057777f7633";
 
 //Check if browser supports geolocation
-if ('geolocation' in navigator) {
+if ('geolocation' in navigator){
     navigator.geolocation.getCurrentPosition(setPosition, showError);
 } else {
     notificationElement.style.display = "block";
@@ -27,7 +27,7 @@ if ('geolocation' in navigator) {
 
 //Set User's Position
 
-function setPosition(position) {
+function setPosition(position){
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
     
@@ -36,15 +36,15 @@ function setPosition(position) {
 
 // show error when there is an issue with geolocation service
 
-function showError(error) {
+function showError(error){
     notificationElement.style.display = "block";
     notificationElement.innerHTML = `<p>${error.message} </p>`
 }
 
 //Get weather from api provider
 
-function getWeather(latitude, logitude) {
-    let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${logitude}&appid=${key}`;
+function getWeather(latitude, logitude){
+    let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${logitude}&appid=${key}`;
     let data;
 
     fetch(api)
@@ -78,10 +78,10 @@ function celsiusToFarenheit(temperature) {
 }
 
 //when the user clicks on the temperature element
-tempElement.addEventListener("click", function() {
-    if ( weather.temperature.value == undefined ) return;
+tempElement.addEventListener("click", function(){
+    if (weather.temperature.value == undefined ) return;
     
-    if ( weather.temperature.unit == "celsius" ) {
+    if (weather.temperature.unit == "celsius" ){
         let fahrenheit = celsiusToFarenheit(weather.temperature.value);
         fahrenheit = Math.floor(fahrenheit);
 
