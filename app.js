@@ -18,16 +18,16 @@ const Kelvin = 273;
 const key = "2282772f730e9f35f3daf057777f7633";
 
 //Check if browser supports geolocation
-if('geolocation' in navigator) {
+if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition(setPosition, showError);
-}else{
+} else {
     notificationElement.style.display = "block";
     notificationElement.innerHTML = "<p>Browser doesn't support Geolocation</p>";
 }
 
 //Set User's Position
 
-function setPosition(position){
+function setPosition(position) {
     let latitude = position.coords.latitude;
     let longitude = position.coords.longitude;
     
@@ -36,7 +36,7 @@ function setPosition(position){
 
 // show error when there is an issue with geolocation service
 
-function showError(error){
+function showError(error) {
     notificationElement.style.display = "block";
     notificationElement.innerHTML = `<p>${error.message} </p>`
 }
@@ -73,22 +73,21 @@ function displayWeather(){
 }
 
 //C to F conversion
-
-function celsiusToFarenheit(temperature){
+function celsiusToFarenheit(temperature) {
     return (temperature*9/5) + 32;
 }
 
 //when the user clicks on the temperature element
-tempElement.addEventListener("click", function(){
-    if(weather.temperature.value == undefined) return;
+tempElement.addEventListener("click", function() {
+    if ( weather.temperature.value == undefined ) return;
     
-    if(weather.temperature.unit == "celsius") {
+    if ( weather.temperature.unit == "celsius" ) {
         let fahrenheit = celsiusToFarenheit(weather.temperature.value);
         fahrenheit = Math.floor(fahrenheit);
 
         tempElement.innerHTML = `${fahrenheit}&deg<span>F</span>`;
         weather.temperature.unit = "fahrenheit";
-    }else{
+    } else {
         tempElement.innerHTML = `${weather.temperature.value}&deg<span>C</span>`;
         weather.temperature.unit = "celsius";
     }
