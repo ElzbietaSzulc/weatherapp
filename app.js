@@ -1,4 +1,6 @@
 // Select elements
+const dateElement = document.querySelector(".weather-data p")
+const hourElement = document.querySelector(".weather-hour p")
 const iconElement = document.querySelector(".weather-icon");
 const tempElement = document.querySelector(".temperature-value p");
 const descElement = document.querySelector(".temperature-description p");
@@ -44,7 +46,7 @@ function showError(error){
 //Get weather from api provider
 
 function getWeather(latitude, logitude){
-    let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${logitude}&appid=${key}`;
+    let api = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${logitude}&appid=${key}`;
     let data;
 
     fetch(api)
@@ -59,6 +61,16 @@ function getWeather(latitude, logitude){
             weather.iconId = data.weather[0].icon;
             weather.city = data.name;
             weather.country = data.sys.country;
+
+            // time
+            var timeDate = new Date(0); 
+            timeDate.setUTCSeconds(data.dt);
+            updateTime = timeDate.toString().split(" ").slice(0, 5).join(" ")
+            updateDate = updateTime.split(" ").slice(0, 3).join(" ")
+            udpateHour = updateTime.split(" ").slice(4).join(" ")
+            weather.date = updateDate;
+            weather.hour = udpateHour;
+
         })
         .then(function(){
                 displayWeather();
@@ -66,6 +78,8 @@ function getWeather(latitude, logitude){
 }
 // Display weather to ui
 function displayWeather(){
+    dateElement.innerHTML = `${weather.date}`;
+    hourElement.innerHTML = `${weather.hour}`;
     iconElement.innerHTML = `<img src="icons/${weather.iconId}.png"/>`;
     tempElement.innerHTML = `${weather.temperature.value}&deg<span>C</span>`;
     descElement.innerHTML = `${weather.description}`;
