@@ -6,7 +6,8 @@ const tempElement = document.querySelector(".temperature-value p");
 const descElement = document.querySelector(".temperature-description p");
 const locationElement = document.querySelector(".location p");
 const notificationElement = document.querySelector(".notification");
-//const forecastTemp1 =  document.querySelector(".temperature-value-nextDay1 p");
+const forecastMinTemp = document.querySelector(".temperaturemin-value-nextDay1");
+const forecastMaxTemp = document.querySelector(".temperaturemax-value-nextDay1");
 const forecastDate1 = document.querySelector(".weather-nextDay-1 p")
 
 //App data
@@ -95,20 +96,27 @@ function getWeather(latitude, logitude) {
                 //for (var i = 1; i < forecastQuantity; i++) {
                 var dateOfForecast = dataForecast.list[i].dt_txt.split(" ").slice(0, 1);
                 var minTempOfForecast = dataForecast.list[i].main.temp_min;
+                var maxTempOfForecast = dataForecast.list[i].main.temp_max;
                 //console.log('out', dateOfForecast, minTempOfForecast, Object.keys(container));
                 if (!container.hasOwnProperty(dateOfForecast)) {
                     //console.log('in',dateOfForecast, minTempOfForecast, Object.keys(container));
                     container[dateOfForecast] = [];
                 }
-                container[dateOfForecast].push(minTempOfForecast);
+                container[dateOfForecast].push(minTempOfForecast, maxTempOfForecast);
             }
 
-            for (var key in container) {
-                container[key] = Math.min(...container[key]);
-            }
-            var contDateTemp = Object.entries(container).slice(1, 4);
-            forecastWeather.date = JSON.stringify(contDateTemp);
+            const contDateTemp = Object.entries(container).slice(1, 4);
 
+            for (const key in contDateTemp) {
+                const minTemp = Math.min(...contDateTemp[key][1]);
+                const maxTemp = Math.max(...contDateTemp[key][1]);
+                contDateTemp[key][1] = minTemp;
+                contDateTemp[key][2] = maxTemp;
+            }
+
+            forecastWeather.date = JSON.stringify(contDateTemp[1][0]);
+            forecastWeather.minTemp = JSON.stringify(contDateTemp[1][1]);
+            forecastWeather.maxTemp = JSON.stringify(contDateTemp[1][2]);
         })
         .then(function () {
             displayWeather();
@@ -126,7 +134,8 @@ function displayWeather() {
     locationElement.innerHTML = `${weather.city}, ${weather.country}`;
 
     // forecast
-    //forecastTemp1.innerHTML = `${}`;
+    forecastMinTemp.innerHTML = `${forecastWeather.minTemp}`;
+    forecastMaxTemp.innerHTML = `${forecastWeather.maxTemp}`;
     forecastDate1.innerHTML = `${forecastWeather.date}`
 
 }
