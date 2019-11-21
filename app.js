@@ -18,6 +18,7 @@ weather.temperature = {
     unit: "celsius"
 }
 
+
 //App const and vars
 
 const Kelvin = 273;
@@ -73,9 +74,9 @@ function getWeather(latitude, logitude) {
             // time
             var timeDate = new Date(0);
             timeDate.setUTCSeconds(data.dt);
-            updateTime = timeDate.toString().split(" ").slice(0, 5).join(" ")
-            updateDate = updateTime.split(" ").slice(0, 3).join(" ")
-            udpateHour = updateTime.split(" ").slice(4).join(" ")
+            updateTime = timeDate.toString().split(" ").slice(0, 5).join(" ");
+            updateDate = updateTime.split(" ").slice(0, 3).join(" ");
+            udpateHour = updateTime.split(" ").slice(4).join(" ");
             weather.date = updateDate;
             weather.hour = udpateHour;
 
@@ -105,22 +106,23 @@ function getWeather(latitude, logitude) {
                 container[dateOfForecast].push(minTempOfForecast, maxTempOfForecast);
             }
 
-            const contDateTemp = Object.entries(container).slice(1, 4);
+            const contDateTemp = Object.entries(container).slice(0, 3);
 
             for (const key in contDateTemp) {
                 const minTemp = Math.min(...contDateTemp[key][1]);
                 const maxTemp = Math.max(...contDateTemp[key][1]);
-                contDateTemp[key][1] = minTemp;
-                contDateTemp[key][2] = maxTemp;
+                contDateTemp[key][1] = Math.floor(minTemp - Kelvin);
+                contDateTemp[key][2] = Math.floor(maxTemp - Kelvin);
             }
-
-            forecastWeather.date = JSON.stringify(contDateTemp[1][0]);
+            const dataNextDay1 = new Date(contDateTemp[1][0]).toDateString("MMMM").split(" ").slice(0, 3).join(" ");
+            forecastWeather.date = dataNextDay1;
             forecastWeather.minTemp = JSON.stringify(contDateTemp[1][1]);
             forecastWeather.maxTemp = JSON.stringify(contDateTemp[1][2]);
         })
         .then(function () {
             displayWeather();
         })
+
 
 }
 // Display weather to ui
@@ -136,7 +138,7 @@ function displayWeather() {
     // forecast
     forecastMinTemp.innerHTML = `${forecastWeather.minTemp}`;
     forecastMaxTemp.innerHTML = `${forecastWeather.maxTemp}`;
-    forecastDate1.innerHTML = `${forecastWeather.date}`
+    forecastDate1.innerHTML = `${forecastWeather.date}`;
 
 }
 
@@ -155,8 +157,13 @@ tempElement.addEventListener("click", function () {
 
         tempElement.innerHTML = `${fahrenheit}&deg<span>F</span>`;
         weather.temperature.unit = "fahrenheit";
+
+        forecastMinTemp.innerHTML = `${celsiusToFarenheit(Math.floor(forecastWeather.minTemp))}`;
     } else {
         tempElement.innerHTML = `${weather.temperature.value}&deg<span>C</span>`;
         weather.temperature.unit = "celsius";
+
+        forecastMinTemp.innerHTML = `${forecastWeather.minTemp}`;
+
     }
 });
