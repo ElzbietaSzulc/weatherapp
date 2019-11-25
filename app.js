@@ -6,9 +6,15 @@ const tempElement = document.querySelector(".temperature-value p");
 const descElement = document.querySelector(".temperature-description p");
 const locationElement = document.querySelector(".location p");
 const notificationElement = document.querySelector(".notification");
-const forecastMinTemp = document.querySelector(".temperaturemin-value-nextDay1");
-const forecastMaxTemp = document.querySelector(".temperaturemax-value-nextDay1");
+const forecastMinTemp1 = document.querySelector(".temperaturemin-value-nextDay1");
+const forecastMaxTemp1 = document.querySelector(".temperaturemax-value-nextDay1");
+const forecastMinTemp2 = document.querySelector(".temperaturemin-value-nextDay2");
+const forecastMaxTemp2 = document.querySelector(".temperaturemax-value-nextDay2");
+const forecastMinTemp3 = document.querySelector(".temperaturemin-value-nextDay3");
+const forecastMaxTemp3 = document.querySelector(".temperaturemax-value-nextDay3");
 const forecastDate1 = document.querySelector(".weather-nextDay-1 p")
+const forecastDate2 = document.querySelector(".weather-nextDay-2 p")
+const forecastDate3 = document.querySelector(".weather-nextDay-3 p")
 
 //App data
 const weather = {};
@@ -106,8 +112,7 @@ function getWeather(latitude, logitude) {
                 container[dateOfForecast].push(minTempOfForecast, maxTempOfForecast);
             }
 
-            const contDateTemp = Object.entries(container).slice(0, 3);
-
+            const contDateTemp = Object.entries(container).slice(0, 4);
             for (const key in contDateTemp) {
                 const minTemp = Math.min(...contDateTemp[key][1]);
                 const maxTemp = Math.max(...contDateTemp[key][1]);
@@ -115,15 +120,22 @@ function getWeather(latitude, logitude) {
                 contDateTemp[key][2] = Math.floor(maxTemp - Kelvin);
             }
             const dataNextDay1 = new Date(contDateTemp[1][0]).toDateString("MMMM").split(" ").slice(0, 3).join(" ");
-            forecastWeather.date = dataNextDay1;
-            forecastWeather.minTemp = JSON.stringify(contDateTemp[1][1]);
-            forecastWeather.maxTemp = JSON.stringify(contDateTemp[1][2]);
+            const dataNextDay2 = new Date(contDateTemp[2][0]).toDateString("MMMM").split(" ").slice(0, 3).join(" ");
+            const dataNextDay3 = new Date(contDateTemp[3][0]).toDateString("MMMM").split(" ").slice(0, 3).join(" ");
+            //const dataNextDay3 = new Date(contDateTemp[3][0]).toDateString("MMMM").split(" ").slice(0, 3).join(" ");
+            forecastWeather.date1 = dataNextDay1;
+            forecastWeather.date2 = dataNextDay2;
+            forecastWeather.date3 = dataNextDay3;
+            forecastWeather.minTemp1 = JSON.stringify(contDateTemp[1][1]);
+            forecastWeather.maxTemp1 = JSON.stringify(contDateTemp[1][2]);
+            forecastWeather.minTemp2 = JSON.stringify(contDateTemp[2][1]);
+            forecastWeather.maxTemp2 = JSON.stringify(contDateTemp[2][2]);
+            forecastWeather.minTemp3 = JSON.stringify(contDateTemp[3][1]);
+            forecastWeather.maxTemp3 = JSON.stringify(contDateTemp[3][2]);
         })
         .then(function () {
             displayWeather();
         })
-
-
 }
 // Display weather to ui
 function displayWeather() {
@@ -135,10 +147,16 @@ function displayWeather() {
     descElement.innerHTML = `${weather.description}`;
     locationElement.innerHTML = `${weather.city}, ${weather.country}`;
 
-    // forecast
-    forecastMinTemp.innerHTML = `${forecastWeather.minTemp}`;
-    forecastMaxTemp.innerHTML = `${forecastWeather.maxTemp}`;
-    forecastDate1.innerHTML = `${forecastWeather.date}`;
+    // forecast  Testing 
+    forecastMinTemp1.innerHTML = `${forecastWeather.minTemp1}`;
+    forecastMaxTemp1.innerHTML = `${forecastWeather.maxTemp1}`;
+    forecastMinTemp2.innerHTML = `${forecastWeather.minTemp2}`;
+    forecastMaxTemp2.innerHTML = `${forecastWeather.maxTemp2}`;
+    forecastMinTemp3.innerHTML = `${forecastWeather.minTemp3}`;
+    forecastMaxTemp3.innerHTML = `${forecastWeather.maxTemp3}`;
+    forecastDate1.innerHTML = `${forecastWeather.date1}`;
+    forecastDate2.innerHTML = `${forecastWeather.date2}`;
+    forecastDate3.innerHTML = `${forecastWeather.date3}`;
 
 }
 
@@ -158,12 +176,22 @@ tempElement.addEventListener("click", function () {
         tempElement.innerHTML = `${fahrenheit}&deg<span>F</span>`;
         weather.temperature.unit = "fahrenheit";
 
-        forecastMinTemp.innerHTML = `${celsiusToFarenheit(Math.floor(forecastWeather.minTemp))}`;
+        forecastMinTemp1.innerHTML = `${celsiusToFarenheit(Math.floor(forecastWeather.minTemp1))}`;
+        forecastMaxTemp1.innerHTML = `${celsiusToFarenheit(Math.floor(forecastWeather.maxTemp1))}`;
+        forecastMinTemp2.innerHTML = `${celsiusToFarenheit(Math.floor(forecastWeather.minTemp2))}`;
+        forecastMaxTemp2.innerHTML = `${celsiusToFarenheit(Math.floor(forecastWeather.maxTemp2))}`;
+        forecastMinTemp3.innerHTML = `${celsiusToFarenheit(Math.floor(forecastWeather.minTemp3))}`;
+        forecastMaxTemp3.innerHTML = `${celsiusToFarenheit(Math.floor(forecastWeather.maxTemp3))}`;
     } else {
         tempElement.innerHTML = `${weather.temperature.value}&deg<span>C</span>`;
         weather.temperature.unit = "celsius";
 
-        forecastMinTemp.innerHTML = `${forecastWeather.minTemp}`;
+        forecastMinTemp1.innerHTML = `${forecastWeather.minTemp1}`;
+        forecastMaxTemp1.innerHTML = `${forecastWeather.maxTemp1}`;
+        forecastMinTemp2.innerHTML = `${forecastWeather.minTemp2}`;
+        forecastMaxTemp2.innerHTML = `${forecastWeather.maxTemp2}`;
+        forecastMinTemp3.innerHTML = `${forecastWeather.minTemp3}`;
+        forecastMaxTemp3.innerHTML = `${forecastWeather.maxTemp3}`;
 
     }
 });

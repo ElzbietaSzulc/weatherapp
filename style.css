@@ -123,7 +123,35 @@ body {
 
 }
 
+.weather-container-nextDay-2 {
+    width: 33%;
+
+}
+
+.weather-container-nextDay-3 {
+    width: 33%;
+
+}
+
 .weather-container-nextDay-1 p {
+    text-align: center;
+    padding: 15px 0 0 0;
+    margin: 0 auto;
+    font-size: 0.8em;
+    color: #293251;
+
+}
+
+.weather-container-nextDay-2 p {
+    text-align: center;
+    padding: 15px 0 0 0;
+    margin: 0 auto;
+    font-size: 0.8em;
+    color: #293251;
+
+}
+
+.weather-container-nextDay-3 p {
     text-align: center;
     padding: 15px 0 0 0;
     margin: 0 auto;
@@ -137,6 +165,16 @@ body {
 
 }
 
+.weather-container-nextDay-2 img {
+    max-width: 100%;
+
+}
+
+.weather-container-nextDay-3 img {
+    max-width: 100%;
+
+}
+
 .next-day-container {
     display: flex;
 }
@@ -146,5 +184,21 @@ body {
 }
 
 .temperaturemin-value-nextDay1 {
+    display: inline;
+}
+
+.temperaturemax-value-nextDay2 {
+    display: inline;
+}
+
+.temperaturemin-value-nextDay2 {
+    display: inline;
+}
+
+.temperaturemax-value-nextDay3 {
+    display: inline;
+}
+
+.temperaturemin-value-nextDay3 {
     display: inline;
 }
