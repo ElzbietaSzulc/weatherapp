@@ -8,7 +8,7 @@ body {
 
 .container {
     width: 300px;
-    height: 540px;
+    height: 520px;
     background-color: #FFF;
 
     display: block;
@@ -135,17 +135,17 @@ body {
 
 .weather-container-nextDay-1 p {
     text-align: center;
-    padding: 15px 0 0 0;
     margin: 0 auto;
     font-size: 0.8em;
+    max-width: 100%;
     color: #293251;
 
 }
 
 .weather-container-nextDay-2 p {
     text-align: center;
-    padding: 15px 0 0 0;
     margin: 0 auto;
+    max-width: 100%;
     font-size: 0.8em;
     color: #293251;
 
@@ -153,8 +153,8 @@ body {
 
 .weather-container-nextDay-3 p {
     text-align: center;
-    padding: 15px 0 0 0;
     margin: 0 auto;
+    max-width: 100%;
     font-size: 0.8em;
     color: #293251;
 
@@ -181,24 +181,49 @@ body {
 
 .temperaturemax-value-nextDay1 {
     display: inline;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 0 0 35px;
+    font-size: 1.0em;
 }
 
 .temperaturemin-value-nextDay1 {
     display: inline;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 0 0 0;
+    font-size: 1.0em;
 }
 
 .temperaturemax-value-nextDay2 {
     display: inline;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 0 0 35px;
+    font-size: 1.0em;
+
 }
 
 .temperaturemin-value-nextDay2 {
     display: inline;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 0 0 0;
+    font-size: 1.0em;
 }
 
 .temperaturemax-value-nextDay3 {
     display: inline;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 0 0 35px;
+    font-size: 1.0em;
 }
 
 .temperaturemin-value-nextDay3 {
     display: inline;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 0 0 0;
+    font-size: 1.0em;
 }

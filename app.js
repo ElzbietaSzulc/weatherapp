@@ -15,6 +15,9 @@ const forecastMaxTemp3 = document.querySelector(".temperaturemax-value-nextDay3"
 const forecastDate1 = document.querySelector(".weather-nextDay-1 p")
 const forecastDate2 = document.querySelector(".weather-nextDay-2 p")
 const forecastDate3 = document.querySelector(".weather-nextDay-3 p")
+const forecastIcon1 = document.querySelector(".weather-icon-nextDay-1")
+const forecastIcon2 = document.querySelector(".weather-icon-nextDay-2")
+const forecastIcon3 = document.querySelector(".weather-icon-nextDay-3")
 
 //App data
 const weather = {};
@@ -132,10 +135,82 @@ function getWeather(latitude, logitude) {
             forecastWeather.maxTemp2 = JSON.stringify(contDateTemp[2][2]);
             forecastWeather.minTemp3 = JSON.stringify(contDateTemp[3][1]);
             forecastWeather.maxTemp3 = JSON.stringify(contDateTemp[3][2]);
+
+            //display weather for forecast
+            var contForecast = {};
+            for (var i = 0; i < dataForecast.list.length; i++) {
+                var dateOfForecast = dataForecast.list[i].dt_txt.split(" ").slice(0, 1);
+                var iconsForecast = dataForecast.list[i].weather[0].icon;
+
+                if (!contForecast.hasOwnProperty(dateOfForecast)) {
+                    //console.log('in',dateOfForecast, minTempOfForecast, Object.keys(container));
+                    contForecast[dateOfForecast] = [];
+                }
+                contForecast[dateOfForecast].push(iconsForecast);
+            }
+            //console.log(contForecast);
+
+            for (var key in contForecast) {
+                contForecast[key] = xxx(contForecast[key])
+            }
+
+
+            //{
+            // 2019-11-27: {04n: 1}
+            // 2019-11-28: {04n: 6, 03d: 1, 04d: 1}
+            // 2019-11-29: {03n: 2, 04n: 3, 04d: 1, 10d: 1, 10n: 1}
+            // 2019-11-30: {03n: 1, 13n: 3, 13d: 2, 04n: 1, 02n: 1}
+            // 2019-12-01: {01n: 4, 01d: 2, 02n: 1, 04n: 1}
+            // 2019-12-02: {04n: 3, 04d: 2, 01n: 1, 02n: 1}
+            //}
+
+            for (var data in contForecast) {
+                contForecast[data] = maxIconOccurency(contForecast[data])
+            }
+            //console.log(Object.entries(contForecast).slice(1, 3));
+            contForecast = Object.entries(contForecast).slice(1, 4);
+            const icon = contForecast;
+            //console.log(icon);
+            forecastWeather.icon1 = icon[0][1];
+            forecastWeather.icon2 = icon[1][1];
+            forecastWeather.icon3 = icon[2][1];
+
         })
         .then(function () {
             displayWeather();
         })
+}
+
+function maxIconOccurency(objWithIcons) {
+    // example of the objWithIcons: {03n: 2, 04n: 3, 04d: 1, 10d: 1, 10n: 1}
+    // return 04n
+
+    let maxIcon = "";
+    let maxOccunrency = 0;
+
+    for (let icon in objWithIcons) {
+
+        if (objWithIcons[icon] > maxOccunrency) {
+            maxOccunrency = objWithIcons[icon];
+            maxIcon = icon
+        }
+    }
+
+    return maxIcon
+}
+
+function xxx(data) {
+    var iconsForecast = {};
+
+    for (var i = 0; i < data.length; i++) {
+        if (iconsForecast[data[i]] == undefined) {
+            iconsForecast[data[i]] = 1;
+        } else {
+            iconsForecast[data[i]] += 1;
+        }
+    }
+
+    return iconsForecast
 }
 // Display weather to ui
 function displayWeather() {
@@ -157,7 +232,9 @@ function displayWeather() {
     forecastDate1.innerHTML = `${forecastWeather.date1}`;
     forecastDate2.innerHTML = `${forecastWeather.date2}`;
     forecastDate3.innerHTML = `${forecastWeather.date3}`;
-
+    forecastIcon1.innerHTML = `<img src="icons/${forecastWeather.icon1}.png"/>`;
+    forecastIcon2.innerHTML = `<img src="icons/${forecastWeather.icon2}.png"/>`;
+    forecastIcon3.innerHTML = `<img src="icons/${forecastWeather.icon3}.png"/>`;
 }
 
 //C to F conversion
