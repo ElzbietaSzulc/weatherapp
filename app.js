@@ -62,7 +62,7 @@ function showError(error) {
 
 function getWeather(latitude, logitude) {
     let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${logitude}&appid=${key}`;
-    let apiForecast = `http://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${logitude}&appid=${key}`;
+    let apiForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${logitude}&appid=${key}`;
     let data;
     let dataForecast;
     //http://api.openweathermap.org/data/2.5/forecast?lat=17.03&lon=51.1&appid=2282772f730e9f35f3daf057777f7633
