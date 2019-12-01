@@ -12,12 +12,14 @@ const forecastMinTemp2 = document.querySelector(".temperaturemin-value-nextDay2"
 const forecastMaxTemp2 = document.querySelector(".temperaturemax-value-nextDay2");
 const forecastMinTemp3 = document.querySelector(".temperaturemin-value-nextDay3");
 const forecastMaxTemp3 = document.querySelector(".temperaturemax-value-nextDay3");
-const forecastDate1 = document.querySelector(".weather-nextDay-1 p")
-const forecastDate2 = document.querySelector(".weather-nextDay-2 p")
-const forecastDate3 = document.querySelector(".weather-nextDay-3 p")
-const forecastIcon1 = document.querySelector(".weather-icon-nextDay-1")
+const forecastDate1 = document.querySelector(".weather-nextDay-1 p");
+const forecastDate2 = document.querySelector(".weather-nextDay-2 p");
+const forecastDate3 = document.querySelector(".weather-nextDay-3 p");
+const forecastIcon1 = document.querySelector(".weather-icon-nextDay-1");
 const forecastIcon2 = document.querySelector(".weather-icon-nextDay-2")
-const forecastIcon3 = document.querySelector(".weather-icon-nextDay-3")
+const forecastIcon3 = document.querySelector(".weather-icon-nextDay-3");
+
+const buttonDarkMode = document.querySelector("#id-dark-mode");
 
 //App data
 const weather = {};
@@ -272,3 +274,9 @@ tempElement.addEventListener("click", function () {
 
     }
 });
+
+buttonDarkMode.addEventListener("click", function () {
+    document.getElementById('wer').classList.toggle('container-dark');
+    document.body.classList.toggle('container-dark')
+    buttonDarkMode.classList.toggle('dark-mode')
+})
