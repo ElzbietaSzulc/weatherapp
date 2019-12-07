@@ -275,8 +275,22 @@ tempElement.addEventListener("click", function () {
     }
 });
 
-buttonDarkMode.addEventListener("click", function () {
-    document.getElementById('wer').classList.toggle('container-dark');
-    document.body.classList.toggle('container-dark')
-    buttonDarkMode.classList.toggle('dark-mode')
+//darkmode
+var checkbox = document.querySelector('input[name=theme]');
+
+checkbox.addEventListener('change', function () {
+    if (this.checked) {
+        trans()
+        document.documentElement.setAttribute('data-theme', 'dark')
+    } else {
+        trans()
+        document.documentElement.setAttribute('data-theme', 'light')
+    }
 })
+
+let trans = () => {
+    document.documentElement.classList.add('transition');
+    window.setTimeout(() => {
+        document.documentElement.classList.remove('transition')
+    }, 1000)
+}

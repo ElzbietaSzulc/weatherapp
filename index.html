@@ -1,87 +1,89 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Weather App - Javascript</title>
-    <link rel="stylesheet" href="font/Rimouski.css" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
+<html lang="en" data-theme="light">
 
-  <body>
-    <div class="container" id="wer">
-      <div class="app-title">
-        <p>Your weather</p>
+<head>
+  <meta charset=" UTF-8" />
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Weather App - Javascript</title>
+  <link rel="stylesheet" href="font/Rimouski.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container" id="weather-card">
+    <div class="toggle-container">
+      <input type="checkbox" id="switch" name="theme" /><label for="switch">Toggle</label>
+    </div>
+    <div class="app-title">
+      <p>Your weather</p>
+    </div>
+    <div class="weather-data">
+      <p>Waiting for date</p>
+    </div>
+    <div class="weather-hour">
+      <p>...</p>
+    </div>
+    <div class="notification"></div>
+    <div class="weather-container">
+      <div class="weather-icon">
+        <img src="icons/unknown.png" />
       </div>
-      <div class="weather-data">
-        <p>Waiting for date</p>
+      <div class="temperature-value">
+        <p>-<span>C</span></p>
       </div>
-      <div class="weather-hour">
-        <p>...</p>
+      <div class="temperature-description">
+        <p>-</p>
       </div>
-      <div class="notification"></div>
-      <div class="weather-container">
-        <div class="weather-icon">
+      <div class="location">
+        <p>-</p>
+      </div>
+    </div>
+    <div class="next-day-container">
+      <div class="weather-container-nextDay-1">
+        <div class="weather-nextDay-1">
+          <p>-</p>
+        </div>
+        <div class="weather-icon-nextDay-1">
           <img src="icons/unknown.png" />
         </div>
-        <div class="temperature-value">
-          <p>-<span>C</span></p>
-        </div>
-        <div class="temperature-description">
-          <p>-</p>
-        </div>
-        <div class="location">
-          <p>-</p>
+        <div>
+          <div class="temperaturemax-value-nextDay1">-</div>
+          |
+          <div class="temperaturemin-value-nextDay1">-</div>
         </div>
       </div>
-      <div class="next-day-container">
-        <div class="weather-container-nextDay-1">
-          <div class="weather-nextDay-1">
-            <p>-</p>
-          </div>
-          <div class="weather-icon-nextDay-1">
-            <img src="icons/unknown.png" />
-          </div>
-          <div>
-            <div class="temperaturemax-value-nextDay1">-</div>
-            |
-            <div class="temperaturemin-value-nextDay1">-</div>
-          </div>
+      <div class="weather-container-nextDay-2">
+        <div class="weather-nextDay-2">
+          <p>-</p>
         </div>
-        <div class="weather-container-nextDay-2">
-          <div class="weather-nextDay-2">
-            <p>-</p>
-          </div>
-          <div class="weather-icon-nextDay-2">
-            <img src="icons/unknown.png" />
-          </div>
-          <div>
-            <div class="temperaturemax-value-nextDay2">-</div>
-            |
-            <div class="temperaturemin-value-nextDay2">-</div>
-          </div>
+        <div class="weather-icon-nextDay-2">
+          <img src="icons/unknown.png" />
         </div>
-        <div class="weather-container-nextDay-3">
-          <div class="weather-nextDay-3">
-            <p>-</p>
-          </div>
-          <div class="weather-icon-nextDay-3">
-            <img src="icons/unknown.png" />
-          </div>
-          <div>
-            <div class="temperaturemax-value-nextDay3">-</div>
-            |
-            <div class="temperaturemin-value-nextDay3">-</div>
-          </div>
+        <div>
+          <div class="temperaturemax-value-nextDay2">-</div>
+          |
+          <div class="temperaturemin-value-nextDay2">-</div>
+        </div>
+      </div>
+      <div class="weather-container-nextDay-3">
+        <div class="weather-nextDay-3">
+          <p>-</p>
+        </div>
+        <div class="weather-icon-nextDay-3">
+          <img src="icons/unknown.png" />
+        </div>
+        <div>
+          <div class="temperaturemax-value-nextDay3">-</div>
+          |
+          <div class="temperaturemin-value-nextDay3">-</div>
         </div>
       </div>
     </div>
-    <button id="id-dark-mode">X</button>
-  </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="app.js"></script>
+  </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="app.js"></script>
+
 </html>

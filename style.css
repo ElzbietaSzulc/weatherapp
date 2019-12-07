@@ -2,32 +2,44 @@
   font-family: "Rimouski";
 }
 
+html {
+  --bg: #9daff1;
+  --bg-panel: #fff;
+  --color-text: #293251;
+  --bg-weather-cont: #f4f9ff;
+  --background-notf: #f8d7da
+;
+}
+
+html[data-theme='dark'] {
+  --bg: #293251;
+  --bg-panel: #434343;
+  --color-text: #293251;
+  --bg-weather-cont: #757575;
+  --background-notf: #a72732;
+}
+
 body {
-  background-color: #9daff1;
+  background-color: var(--bg);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .container {
   width: 300px;
   height: 520px;
-  background-color: #fff;
-
+  background-color: var(--bg-panel);
   display: block;
   margin: 0 auto;
-
   border-radius: 10px;
   padding-bottom: 20px;
-}
-
-.container-dark {
-  /*width: 300px; */
-  /* height: 520px; */
-  background-color: #000;
-
-  /* display: block; */
-  /* margin: 0 auto; */
-
-  /* border-radius: 10px; */
-  /* padding-bottom: 20px; */
 }
 
 .app-title {
@@ -38,10 +50,9 @@ body {
 
 .weather-data p {
   text-align: center;
-  padding: 5px 0 0 0;
+  padding: 5px 0 5px 0;
   margin: 0 auto;
   font-size: 1.2em;
-  color: #293251;
 }
 
 .weather-hour p {
@@ -49,7 +60,7 @@ body {
   padding: 0 0 5px 0;
   margin: 0 auto;
   font-size: 0.9em;
-  color: #293251;
+  color: var(--color-tex);
 }
 
 .app-title p {
@@ -57,7 +68,52 @@ body {
   padding: 15px 0 10px 0;
   margin: 0 auto;
   font-size: 1.2em;
-  color: #293251;
+  color: var(--color-tex);
+}
+
+input[type=checkbox] {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+label {
+  cursor: pointer;
+  text-indent: -9999px;
+  width: 50px;
+  height: 20px;
+  background: #c1c3c5;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+label:after {
+  content: '';
+  position: absolute;
+  border: 0.2px solid grey;
+  top: 0;
+  left: 0px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 100px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+input:checked + label {
+  background: #747373;
+}
+
+input:checked + label:after {
+  left: calc(80% - 5px);
+  -webkit-transform: translateX(-5%);
+          transform: translateX(-5%);
+}
+
+label:active:after {
+  width: 20px;
 }
 
 .notification {
@@ -76,7 +132,7 @@ body {
 .weather-container {
   width: 300px;
   height: 260px;
-  background-color: #f4f9ff;
+  background-color: var(--bg-weather-cont);
 }
 
 .weather-icon {
@@ -97,24 +153,21 @@ body {
 .temperature-value p {
   padding: 0;
   margin: 0;
-  color: #293251;
+  color: var(--color-tex);
   font-size: 4em;
   text-align: center;
   cursor: pointer;
 }
 
-.temperature-value p:hover {
-}
-
 .temperature-value span {
-  color: #293251;
+  color: var(--color-tex);
   font-size: 0.5em;
 }
 
 .temperature-description p {
   padding: 8px;
   margin: 0;
-  color: #293251;
+  color: var(--color-tex);
   text-align: center;
   font-size: 1.2em;
 }
@@ -122,7 +175,7 @@ body {
 .location p {
   margin: 0;
   padding: 0;
-  color: #293251;
+  color: var(--color-tex);
   text-align: center;
   font-size: 0.8em;
 }
@@ -131,6 +184,7 @@ body {
 .weather-container-nextDay-2,
 .weather-container-nextDay-3 {
   width: 33%;
+  padding: 10px;
 }
 
 .weather-container-nextDay-1 p,
@@ -140,7 +194,7 @@ body {
   margin: 0 auto;
   font-size: 0.8em;
   max-width: 100%;
-  color: #293251;
+  color: var(--color-tex);
 }
 
 .weather-container-nextDay-1 img,
@@ -150,6 +204,8 @@ body {
 }
 
 .next-day-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   text-align: center;
 }
@@ -166,7 +222,4 @@ body {
   margin: 0 auto;
   font-size: 1em;
 }
-
-.dark-mode {
-  background-color: #000;
-}
+/*# sourceMappingURL=style.css.map */
