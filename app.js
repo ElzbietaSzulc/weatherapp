@@ -29,7 +29,6 @@ weather.temperature = {
     unit: "celsius"
 }
 
-
 //App const and vars
 
 const Kelvin = 273;
@@ -275,7 +274,7 @@ tempElement.addEventListener("click", function () {
     }
 });
 
-//darkmode
+//implementing dark mode
 var checkbox = document.querySelector('input[name=theme]');
 
 checkbox.addEventListener('change', function () {
