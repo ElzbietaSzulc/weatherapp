@@ -1,5 +1,3 @@
-const celsiusToFarenheit = require("./celsiusToFarenheit");
-
 // Select elements
 const dateElement = document.querySelector(".weather-data p");
 const hourElement = document.querySelector(".weather-hour p");
@@ -70,7 +68,7 @@ function setPosition(position) {
 
 // show error when there is an issue with geolocation service
 
-export function showError(error) {
+function showError(error) {
     notificationElement.style.display = "block";
     notificationElement.innerHTML = `<p>${error.message} </p>`;
 }
@@ -251,7 +249,10 @@ function displayWeather() {
     forecastIcon3.innerHTML = `<img src="icons/${forecastWeather.icon3}.png"/>`;
 }
 
-
+//C to F conversion
+function celsiusToFarenheit(temperature) {
+    return (temperature * 9) / 5 + 32;
+}
 
 //when the user clicks on the temperature element
 tempElement.addEventListener("click", function () {
