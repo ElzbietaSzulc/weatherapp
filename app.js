@@ -1,3 +1,4 @@
+import { helpers } from './functions.js';
 // Select elements
 const dateElement = document.querySelector(".weather-data p");
 const hourElement = document.querySelector(".weather-hour p");
@@ -97,16 +98,16 @@ function getWeather(latitude, logitude) {
 
             var timeDate = new Date(0);
             timeDate.setUTCSeconds(data.dt);
-            updateTime = timeDate
+            const updateTime = timeDate
                 .toString()
                 .split(" ")
                 .slice(0, 5)
                 .join(" ");
-            updateDate = updateTime
+            const updateDate = updateTime
                 .split(" ")
                 .slice(0, 3)
                 .join(" ");
-            udpateHour = updateTime
+            const udpateHour = updateTime
                 .split(" ")
                 .slice(4)
                 .join(" ");
@@ -249,40 +250,35 @@ function displayWeather() {
     forecastIcon3.innerHTML = `<img src="icons/${forecastWeather.icon3}.png"/>`;
 }
 
-//C to F conversion
-function celsiusToFarenheit(temperature) {
-    return (temperature * 9) / 5 + 32;
-}
-
 //when the user clicks on the temperature element
 tempElement.addEventListener("click", function () {
     if (weather.temperature.value == undefined) return;
 
     if (weather.temperature.unit == "celsius") {
-        let fahrenheit = celsiusToFarenheit(weather.temperature.value);
+        let fahrenheit = helpers.celsiusToFarenheit(weather.temperature.value);
         fahrenheit = Math.floor(fahrenheit);
 
         tempElement.innerHTML = `${fahrenheit}&deg<span>F</span>`;
         weather.temperature.unit = "fahrenheit";
 
-        forecastMinTemp1.innerHTML = `${celsiusToFarenheit(
-      Math.floor(forecastWeather.minTemp1)
-    )}`;
-        forecastMaxTemp1.innerHTML = `${celsiusToFarenheit(
-      Math.floor(forecastWeather.maxTemp1)
-    )}`;
-        forecastMinTemp2.innerHTML = `${celsiusToFarenheit(
-      Math.floor(forecastWeather.minTemp2)
-    )}`;
-        forecastMaxTemp2.innerHTML = `${celsiusToFarenheit(
-      Math.floor(forecastWeather.maxTemp2)
-    )}`;
-        forecastMinTemp3.innerHTML = `${celsiusToFarenheit(
-      Math.floor(forecastWeather.minTemp3)
-    )}`;
-        forecastMaxTemp3.innerHTML = `${celsiusToFarenheit(
-      Math.floor(forecastWeather.maxTemp3)
-    )}`;
+        forecastMinTemp1.innerHTML = `${helpers.celsiusToFarenheit(
+            Math.floor(forecastWeather.minTemp1)
+        )}`;
+        forecastMaxTemp1.innerHTML = `${helpers.celsiusToFarenheit(
+            Math.floor(forecastWeather.maxTemp1)
+        )}`;
+        forecastMinTemp2.innerHTML = `${helpers.celsiusToFarenheit(
+            Math.floor(forecastWeather.minTemp2)
+        )}`;
+        forecastMaxTemp2.innerHTML = `${helpers.celsiusToFarenheit(
+            Math.floor(forecastWeather.maxTemp2)
+        )}`;
+        forecastMinTemp3.innerHTML = `${helpers.celsiusToFarenheit(
+            Math.floor(forecastWeather.minTemp3)
+        )}`;
+        forecastMaxTemp3.innerHTML = `${helpers.celsiusToFarenheit(
+            Math.floor(forecastWeather.maxTemp3)
+        )}`;
     } else {
         tempElement.innerHTML = `${weather.temperature.value}&deg<span>C</span>`;
         weather.temperature.unit = "celsius";

@@ -1,8 +1,9 @@
-const functions = require("./functions");
+const toTest = require("../functions.js");
 
 test('Celsius to Farenheit convertion', () => {
-  expect(functions.celsiusToFarenheit()).toBeDefined();
+  expect(toTest.helpers.celsiusToFarenheit()).toBeDefined();
 });
+
 test('Celsius to Farenheit convertion', () => {
-  expect(functions.celsiusToFarenheit(0)).toBe(32);
+  expect(toTest.helpers.celsiusToFarenheit(0)).toBe(32);
 });

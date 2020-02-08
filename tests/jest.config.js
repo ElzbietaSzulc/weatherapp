@@ -169,10 +169,15 @@ module.exports = {
   // A map from regular expressions to paths to transformers
   // transform: null,
 
+  "transform": {
+    "^.+\\.js": "/Users/elzbietaszulc/proj_piv/weatherapp/weatherapp/node_modules/babel-jest"
+  },
+
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  // transformIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
+  transformIgnorePatterns: [
+    "/node_modules/(?!functions\.js)"
+  ],
+
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,
