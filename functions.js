@@ -1,11 +1,14 @@
-// export const functions = {
-//     celsiusToFarenheit: (temperature) => (temperature * 9) / 5 + 32,
-// }
 export const helpers = {
-    celsiusToFarenheit: (temperature) => (temperature * 9) / 5 + 32,
+    celsiusToFarenheit: (temperature) => {
+        if (Number.isInteger(temperature)) {
+            return (temperature * 9) / 5 + 32;
+        } else {
+            return null
+        }
+    },
 
     maxIconOccurency: (objWithIcons) => {
-        let maxIcon = "";
+        let maxIcon = '';
         let maxOccunrency = 0;
 
         for (let icon in objWithIcons) {
@@ -14,7 +17,21 @@ export const helpers = {
                 maxIcon = icon;
             }
         }
-
         return maxIcon;
     },
+
+    countIconsForecast: (data) => {
+        let iconsForecast = {};
+
+        for (let i = 0; i < data.length; i++) {
+            if (iconsForecast[data[i]] == undefined) {
+                iconsForecast[data[i]] = 1;
+            } else {
+                iconsForecast[data[i]] += 1;
+            }
+        }
+
+        return iconsForecast;
+    }
 }
+

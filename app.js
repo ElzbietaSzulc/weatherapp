@@ -180,7 +180,7 @@ function getWeather(latitude, logitude) {
                 contForecast[dateOfForecast].push(iconsForecast);
             }
             for (var key in contForecast) {
-                contForecast[key] = xxx(contForecast[key]);
+                contForecast[key] = helpers.countIconsForecast(contForecast[key]);
             }
 
             for (var data in contForecast) {
@@ -198,33 +198,6 @@ function getWeather(latitude, logitude) {
         });
 }
 
-function maxIconOccurency(objWithIcons) {
-    let maxIcon = "";
-    let maxOccunrency = 0;
-
-    for (let icon in objWithIcons) {
-        if (objWithIcons[icon] > maxOccunrency) {
-            maxOccunrency = objWithIcons[icon];
-            maxIcon = icon;
-        }
-    }
-
-    return maxIcon;
-}
-
-function xxx(data) {
-    var iconsForecast = {};
-
-    for (var i = 0; i < data.length; i++) {
-        if (iconsForecast[data[i]] == undefined) {
-            iconsForecast[data[i]] = 1;
-        } else {
-            iconsForecast[data[i]] += 1;
-        }
-    }
-
-    return iconsForecast;
-}
 // Display weather to ui
 function displayWeather() {
     // current weather
