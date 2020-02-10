@@ -21,8 +21,11 @@ export const helpers = {
     },
 
     countIconsForecast: (data) => {
-        let iconsForecast = {};
+        if (!(typeof data === 'object' && data !== null)) {
+            return null;
+        }
 
+        let iconsForecast = {};
         for (let i = 0; i < data.length; i++) {
             if (iconsForecast[data[i]] == undefined) {
                 iconsForecast[data[i]] = 1;

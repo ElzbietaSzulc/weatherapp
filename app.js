@@ -184,7 +184,7 @@ function getWeather(latitude, logitude) {
             }
 
             for (var data in contForecast) {
-                contForecast[data] = maxIconOccurency(contForecast[data]);
+                contForecast[data] = helpers.maxIconOccurency(contForecast[data]);
             }
             contForecast = Object.entries(contForecast).slice(1, 4);
             const icon = contForecast;

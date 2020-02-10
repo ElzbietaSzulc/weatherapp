@@ -17,7 +17,7 @@ describe('Check celsiusToFarenheit function', () => {
     expect(toTest.helpers.celsiusToFarenheit(null)).toBeNull();
   });
 })
-////////////////////////////////////TODO
+
 describe('Check maxIconOccurency function', () => {
   test('Object is empty', () => {
     expect(toTest.helpers.maxIconOccurency({})).toBe('');
@@ -52,33 +52,26 @@ describe('Check maxIconOccurency function', () => {
 
 describe('Check countIconsForecast function', () => {
   test('Object is empty', () => {
-    expect(toTest.helpers.countIconsForecast({})).toBe('');
+    expect(toTest.helpers.countIconsForecast({})).toStrictEqual({});
   });
 
-  test('Invalid input check in maxIconOccurency function', () => {
-    expect(toTest.helpers.maxIconOccurency(null)).toBe('');;
-    expect(toTest.helpers.maxIconOccurency(undefined)).toBe('');
-    expect(toTest.helpers.maxIconOccurency(1)).toBe('');
-    expect(toTest.helpers.maxIconOccurency('a')).toBe('');
+  test('Invalid input check in countIconsForecast function', () => {
+    expect(toTest.helpers.countIconsForecast(null)).toBeNull();
+    expect(toTest.helpers.countIconsForecast(undefined)).toBeNull();
+    expect(toTest.helpers.countIconsForecast(1)).toBeNull();
+    expect(toTest.helpers.countIconsForecast('a')).toBeNull();
   });
 
-  test('Counts max icon occurency', () => {
-    expect(toTest.helpers.maxIconOccurency(
-      {
-        '01n': 1,
-        '03n': 1,
-        '02n': 1,
-        '01d': 1,
-        '03d': 1,
-        '04d': 1,
-        '04n': 2
-      }
-    )).toBe('04n');
-  });
-
-  test('maxIconOccurency function returns expected value', () => {
-    const icons = {};
-    expect(toTest.helpers.maxIconOccurency(icons)).toBe('');
+  test('Counts countIconsForecast occurency', () => {
+    expect(toTest.helpers.countIconsForecast(
+      ["03n", "01n", "01n", "04d", "04d", "01d", "03n", "04n"]
+    )).toStrictEqual({
+      '01n': 2,
+      '03n': 2,
+      '01d': 1,
+      '04d': 2,
+      '04n': 1
+    });
   });
 })
 
