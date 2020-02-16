@@ -37,7 +37,7 @@ const buttonDarkMode = document.querySelector("#id-dark-mode");
 //App data
 
 const weather = {};
-const forecastWeather = {};
+let forecastWeather = {};
 
 weather.temperature = {
     unit: "celsius"
@@ -52,12 +52,11 @@ const forecastQuantity = 4;
 //Check if browser supports geolocation
 
 if ("geolocation" in navigator) {
-    navigator.geolocation.getCurrentPosition(setPosition, showError);
+    navigator.geolocation.getCurrentPosition(setPosition, helpers.showError);
 } else {
     notificationElement.style.display = "block";
     notificationElement.innerHTML = "<p>Browser doesn't support Geolocation</p>";
 }
-
 //Set User's Position
 
 function setPosition(position) {
@@ -66,53 +65,19 @@ function setPosition(position) {
 
     getWeather(latitude, longitude);
 }
-
-// show error when there is an issue with geolocation service
-
-function showError(error) {
-    notificationElement.style.display = "block";
-    notificationElement.innerHTML = `<p>${error.message} </p>`;
-}
-
 //Get weather from api provider
 
 function getWeather(latitude, logitude) {
     let api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${logitude}&appid=${key}`;
     let apiForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${logitude}&appid=${key}`;
-    let data;
     let dataForecast;
 
     fetch(api)
         .then(function (response) {
-            data = response.json();
-            return data;
+            return response.json();
         })
         .then(function (data) {
-            weather.temperature.value = Math.floor(data.main.temp - Kelvin);
-            weather.description = data.weather[0].description;
-            weather.iconId = data.weather[0].icon;
-            weather.city = data.name;
-            weather.country = data.sys.country;
-
-            // time
-
-            var timeDate = new Date(0);
-            timeDate.setUTCSeconds(data.dt);
-            const updateTime = timeDate
-                .toString()
-                .split(" ")
-                .slice(0, 5)
-                .join(" ");
-            const updateDate = updateTime
-                .split(" ")
-                .slice(0, 3)
-                .join(" ");
-            const udpateHour = updateTime
-                .split(" ")
-                .slice(4)
-                .join(" ");
-            weather.date = updateDate;
-            weather.hour = udpateHour;
+            helpers.updateWeather(weather, data, Kelvin);
         })
         .then(function () {
             displayWeather();
@@ -124,49 +89,7 @@ function getWeather(latitude, logitude) {
             return dataForecast;
         })
         .then(function (dataForecast) {
-            var container = {};
-
-            for (var i = 0; i < dataForecast.list.length; i++) {
-                var dateOfForecast = dataForecast.list[i].dt_txt.split(" ").slice(0, 1);
-                var minTempOfForecast = dataForecast.list[i].main.temp_min;
-                var maxTempOfForecast = dataForecast.list[i].main.temp_max;
-                if (!container.hasOwnProperty(dateOfForecast)) {
-                    container[dateOfForecast] = [];
-                }
-                container[dateOfForecast].push(minTempOfForecast, maxTempOfForecast);
-            }
-
-            const contDateTemp = Object.entries(container).slice(0, 4);
-            for (const key in contDateTemp) {
-                const minTemp = Math.min(...contDateTemp[key][1]);
-                const maxTemp = Math.max(...contDateTemp[key][1]);
-                contDateTemp[key][1] = Math.floor(minTemp - Kelvin);
-                contDateTemp[key][2] = Math.floor(maxTemp - Kelvin);
-            }
-            const dataNextDay1 = new Date(contDateTemp[1][0])
-                .toDateString("MMMM")
-                .split(" ")
-                .slice(0, 3)
-                .join(" ");
-            const dataNextDay2 = new Date(contDateTemp[2][0])
-                .toDateString("MMMM")
-                .split(" ")
-                .slice(0, 3)
-                .join(" ");
-            const dataNextDay3 = new Date(contDateTemp[3][0])
-                .toDateString("MMMM")
-                .split(" ")
-                .slice(0, 3)
-                .join(" ");
-            forecastWeather.date1 = dataNextDay1;
-            forecastWeather.date2 = dataNextDay2;
-            forecastWeather.date3 = dataNextDay3;
-            forecastWeather.minTemp1 = JSON.stringify(contDateTemp[1][1]);
-            forecastWeather.maxTemp1 = JSON.stringify(contDateTemp[1][2]);
-            forecastWeather.minTemp2 = JSON.stringify(contDateTemp[2][1]);
-            forecastWeather.maxTemp2 = JSON.stringify(contDateTemp[2][2]);
-            forecastWeather.minTemp3 = JSON.stringify(contDateTemp[3][1]);
-            forecastWeather.maxTemp3 = JSON.stringify(contDateTemp[3][2]);
+            forecastWeather = helpers.getWeatherForecast(dataForecast, Kelvin);
 
             //Display weather for forecast
             var contForecast = {};
