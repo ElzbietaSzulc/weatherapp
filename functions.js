@@ -97,42 +97,48 @@ export const helpers = {
         helpers.updateWeatherGeolocation(weather, data);
         helpers.updateWeatherTime(weather, data.dt);
     },
-    getDataForecast: () => {
+
+    getDataForecast: forecastList => {
         let container = {};
 
-        for (var i = 0; i < dataForecast.list.length; i++) {
-            var dateOfForecast = dataForecast.list[i].dt_txt.split(" ").slice(0, 1);
-            var minTempOfForecast = dataForecast.list[i].main.temp_min;
-            var maxTempOfForecast = dataForecast.list[i].main.temp_max;
+        for (let i = 0; i < forecastList.length; i++) {
+            const dateOfForecast = forecastList[i].dt_txt.split(' ').slice(0, 1);
+
             if (!container.hasOwnProperty(dateOfForecast)) {
                 container[dateOfForecast] = [];
             }
-            container[dateOfForecast].push(minTempOfForecast, maxTempOfForecast);
+            container[dateOfForecast].push(
+                forecastList[i].main.temp_min,
+                forecastList[i].main.temp_max
+            );
+        }
+
+        return Object.entries(container).slice(0, 4);
+    },
+
+    updateTreeDayForecast: (temperaturesData, Kelvin) => {
+        for (const key in temperaturesData) {
+            const minTemp = Math.min(...temperaturesData[key][1]);
+            const maxTemp = Math.max(...temperaturesData[key][1]);
+            temperaturesData[key][1] = Math.floor(minTemp - Kelvin);
+            temperaturesData[key][2] = Math.floor(maxTemp - Kelvin);
         }
     },
 
-    getWeatherForecast: (dataForecast, Kelvin) => {
-
-        //const contDateTemp = Object.entries(container).slice(0, 4);
-        const contDateTemp = getDataForecast();
-
-        for (const key in contDateTemp) {
-            const minTemp = Math.min(...contDateTemp[key][1]);
-            const maxTemp = Math.max(...contDateTemp[key][1]);
-            contDateTemp[key][1] = Math.floor(minTemp - Kelvin);
-            contDateTemp[key][2] = Math.floor(maxTemp - Kelvin);
-        }
+    getWeatherForecast: (data, Kelvin) => {
+        const temperaturesData = helpers.getDataForecast(data.list);
+        helpers.updateTreeDayForecast(temperaturesData, Kelvin);
 
         return {
-            'date1': helpers.getDataNextDay(contDateTemp[1][0]),
-            'date2': helpers.getDataNextDay(contDateTemp[2][0]),
-            'date3': helpers.getDataNextDay(contDateTemp[3][0]),
-            'minTemp1': JSON.stringify(contDateTemp[1][1]),
-            'maxTemp1': JSON.stringify(contDateTemp[1][2]),
-            'minTemp2': JSON.stringify(contDateTemp[2][1]),
-            'maxTemp2': JSON.stringify(contDateTemp[2][2]),
-            'minTemp3': JSON.stringify(contDateTemp[3][1]),
-            'maxTemp3': JSON.stringify(contDateTemp[3][2]),
+            'date1': helpers.getDataNextDay(temperaturesData[1][0]),
+            'date2': helpers.getDataNextDay(temperaturesData[2][0]),
+            'date3': helpers.getDataNextDay(temperaturesData[3][0]),
+            'minTemp1': JSON.stringify(temperaturesData[1][1]),
+            'maxTemp1': JSON.stringify(temperaturesData[1][2]),
+            'minTemp2': JSON.stringify(temperaturesData[2][1]),
+            'maxTemp2': JSON.stringify(temperaturesData[2][2]),
+            'minTemp3': JSON.stringify(temperaturesData[3][1]),
+            'maxTemp3': JSON.stringify(temperaturesData[3][2]),
         }
     }
 }
