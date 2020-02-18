@@ -64,7 +64,7 @@ describe('Check countIconsForecast function', () => {
 
   test('Counts countIconsForecast occurency', () => {
     expect(toTest.helpers.countIconsForecast(
-      ["03n", "01n", "01n", "04d", "04d", "01d", "03n", "04n"]
+      ['03n', '01n', '01n', '04d', '04d', '01d', '03n', '04n']
     )).toStrictEqual({
       '01n': 2,
       '03n': 2,
@@ -75,4 +75,62 @@ describe('Check countIconsForecast function', () => {
   });
 })
 
+describe('Check getDataNextDay function', () => {
+  test('Object is valid', () => {
+    expect(toTest.helpers.getDataNextDay("2020-02-19")).toBe("Wed Feb 19");
+  });
+  test('Date format is undefined', () => {
+    expect(toTest.helpers.getDataNextDay(undefined)).toBe('Invalid Date');
+  });
+  test('Date format is invalid', () => {
+    expect(toTest.helpers.getDataNextDay("20200209")).toBe('Invalid Date');
+  });
+})
 
+describe('Check updateTime function', () => {
+  test('timeDate is valid', () => {
+    expect(toTest.helpers.updateTime('2020-Tue Feb 18 2020 21:07:31 GMT+0100 (Central European Standard Time)-19')).toBe('2020-Tue Feb 18 2020 21:07:31');
+  });
+  test('Time format is invalid', () => {
+    expect(toTest.helpers.updateTime(undefined)).toBe('Time format is invalid');
+  });
+  test('timeDate is empty object', () => {
+    expect(toTest.helpers.updateTime('')).toBe('');
+  });
+})
+
+describe('Check updateDate function', () => {
+  test('Object is valid', () => {
+    expect(toTest.helpers.updateDate('Tue Feb 18 2020 21:35:07')).toBe('Tue Feb 18');
+  });
+  test('Time format is invalid', () => {
+    expect(toTest.helpers.updateDate(undefined)).toBe('Invalid time');
+  });
+  test('updateTime is empty', () => {
+    expect(toTest.helpers.updateDate('')).toBe('');
+  });
+})
+
+describe('Check updateHour function', () => {
+  test('Object is valid', () => {
+    expect(toTest.helpers.updateHour('Tue Feb 18 2020 22:00:58')).toBe('22:00:58');
+  });
+  test('Time format is invalid', () => {
+    expect(toTest.helpers.updateHour(undefined)).toBe('Invalid time');
+  });
+  test('Object is empty', () => {
+    expect(toTest.helpers.updateHour('')).toBe('');
+  });
+})
+
+describe('Check updateHour function', () => {
+  test('Object is valid', () => {
+    expect(toTest.helpers.updateWeatherTime('Tue Feb 18 2020 22:00:58')).toBe('22:00:58');
+  });
+  test('Time format is invalid', () => {
+    expect(toTest.helpers.updateWeatherTime(undefined)).toBe('Invalid time');
+  });
+  test('Object is empty', () => {
+    expect(toTest.helpers.updateWeatherTime('')).toBe('');
+  });
+})

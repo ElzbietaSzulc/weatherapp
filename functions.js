@@ -45,32 +45,52 @@ export const helpers = {
     },
 
     getDataNextDay: item => {
-        return new Date(item)
-            .toDateString("MMMM")
-            .split(" ")
-            .slice(0, 3)
-            .join(" ");
+        try {
+            return new Date(item)
+                .toDateString("MMMM")
+                .split(" ")
+                .slice(0, 3)
+                .join(" ");
+        }
+        catch (error) {
+            return 'Invalid Date';
+        }
     },
     updateTime: timeDate => {
-        return timeDate
-            .toString()
-            .split(" ")
-            .slice(0, 5)
-            .join(" ");
+        try {
+            return timeDate
+                .toString()
+                .split(" ")
+                .slice(0, 5)
+                .join(" ");
+        }
+        catch (error) {
+            return 'Time format is invalid';
+        }
     },
 
     updateDate: updateTime => {
-        return updateTime
-            .split(" ")
-            .slice(0, 3)
-            .join(" ");
+        try {
+            return updateTime
+                .split(" ")
+                .slice(0, 3)
+                .join(" ");
+        }
+        catch (error) {
+            return 'Invalid time';
+        }
     },
 
     updateHour: updateTime => {
-        return updateTime
-            .split(" ")
-            .slice(4)
-            .join(" ");
+        try {
+            return updateTime
+                .split(" ")
+                .slice(4)
+                .join(" ");
+        }
+        catch (error) {
+            return 'Invalid time';
+        }
     },
 
     updateWeatherTime: (weather, data) => {
