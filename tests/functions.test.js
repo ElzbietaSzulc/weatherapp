@@ -123,9 +123,9 @@ describe('Check updateHour function', () => {
   });
 })
 
-describe('Check updateHour function', () => {
+describe('Check updateWeatherTime function', () => {
   test('Object is valid', () => {
-    expect(toTest.helpers.updateWeatherTime('Tue Feb 18 2020 22:00:58')).toBe('22:00:58');
+    expect(toTest.helpers.updateWeatherTime("Wed Feb 19")).toBe("22:00:58");
   });
   test('Time format is invalid', () => {
     expect(toTest.helpers.updateWeatherTime(undefined)).toBe('Invalid time');
