@@ -105,6 +105,7 @@ export const helpers = {
         weather.temperature.value = Math.floor(data.main.temp - Kelvin);
         weather.description = data.weather[0].description;
         weather.iconId = data.weather[0].icon;
+        g
     },
 
     updateWeatherGeolocation: (weather, data) => {
