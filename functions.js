@@ -106,7 +106,7 @@ export const helpers = {
         weather.description = data.weather[0].description;
         weather.iconId = data.weather[0].icon;
     },
-
+    
     updateWeatherGeolocation: (weather, data) => {
         weather.city = data.name;
         weather.country = data.sys.country;
